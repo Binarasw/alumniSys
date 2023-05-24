@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Management</title>
+  <style>
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 200px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button[type="submit"] {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Alumni Management</h1>
+
+  <!-- Registration form -->
+  <form id="registrationForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Login form -->
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      // ...
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Get the registration form element
+    var registrationForm = document.getElementById("registrationForm");
+    // Add a submit event listener to the form
+    registrationForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the username and password values
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Create a new user with email and password
+      firebase.auth().createUserWithEmailAndPassword(username, password)
+        .then(function(userCredential) {
+          // Registration successful, you can redirect or perform any other actions here
+          console.log("Registration successful!");
+        })
+        .catch(function(error) {
+          // Handle registration errors
+          console.log("Registration failed:", error.message);
+        });
+    });
+
+    // Get the login form element
+    var loginForm = document.getElementById("loginForm");
+    // Add a submit event listener to the form
+    loginForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the username and password values
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Sign in the user with email and password
+      firebase.auth().signInWithEmailAndPassword(username, password)
+        .then(function(userCredential) {
+          // Login successful, you can redirect or perform any other actions here
+          console.log("Login successful!");
+        })
+        .
+        .catch(function(error) {
+          // Handle login errors
+          console.log("Login failed:", error.message);
+        });
+    });
+  </script>
+</body>
+</html>
